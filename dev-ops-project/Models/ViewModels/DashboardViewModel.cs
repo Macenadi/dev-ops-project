@@ -2,6 +2,10 @@
 {
     public class DashboardViewModel
     {
-        public DashboardViewModel() { }
+        public decimal TotalIncome { get; set; }
+        public decimal TotalExpense { get; set; }
+        public decimal Balance { get; set; } = 0;
+
+        public List<Transaction> RecentTransaction { get; set; } = new();
     }
 }
