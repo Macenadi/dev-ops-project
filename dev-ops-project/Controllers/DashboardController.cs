@@ -9,9 +9,6 @@ namespace dev_ops_project.Controllers
     public class DashboardController : Controller
     {
       private readonly AppDbContext _context;
-        private decimal totalIncome;
-        private decimal totalExpense;
-
         public DashboardController(AppDbContext context)
             {
                 _context = context;
@@ -23,10 +20,14 @@ namespace dev_ops_project.Controllers
                 .Include(t => t.User)
                 .ToList();
 
-            var totalAmount = transactions
+            var totalIncome = transactions
                 .Where(t => t.Type == TransactionType.Expense)
                 .Sum(t => t.Amount);
-             
+
+            var totalExpense = transactions
+                .Where(t => t.Type == TransactionType.Expense)
+                .Sum(t => t.Amount);
+
             var ViewModel = new DashboardViewModel
             {
                 TotalIncome = totalIncome,
