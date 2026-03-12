@@ -61,6 +61,17 @@ namespace dev_ops_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Amount,Date,Description,CategoryId,UserId,Type")] Transaction transaction)
         {
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState)
+                {
+                    Console.WriteLine($"Campo: {error.Key}");
+                    foreach (var subError in error.Value.Errors)
+                    {
+                        Console.WriteLine($"Erro: {subError.ErrorMessage}");
+                    }
+                }
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(transaction);
